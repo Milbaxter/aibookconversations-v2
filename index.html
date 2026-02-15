@@ -331,7 +331,7 @@
       <div class="curriculum-card" data-curriculum="great-books" onclick="selectCurriculum('great-books', this)">
         <div class="check-mark">&#10003;</div>
         <div class="card-name">The Great Books</div>
-        <div class="card-desc">The education that built Western civilization. The foundational texts on truth, virtue, power, and the human condition.</div>
+        <div class="card-desc">The canon of Western liberal arts education. These are the books assigned at Columbia, St. John's, and Chicago &mdash; the texts that shaped how we think about justice, truth, power, and what it means to live well.</div>
         <div class="card-books">
           <span>Plato &middot; Aristotle &middot; Homer</span>
           <span>Dostoyevsky &middot; Machiavelli &middot; Tolstoy</span>
@@ -423,31 +423,34 @@
 <!-- ===== SCREEN 3: EMAIL CAPTURE ===== -->
 <div class="screen" data-screen="email">
   <div class="screen-inner">
-    <p class="section-label">Almost There</p>
-    <h2 class="section-title">Enter your email to start</h2>
-    <p style="color:var(--text-sec);margin-top:-20px;margin-bottom:28px;font-size:0.95rem;">You'll receive your first book conversation within 24 hours.</p>
+    <p class="section-label">Free First Conversation</p>
+    <h2 class="section-title">Get your first book conversation free</h2>
+    <p style="color:var(--text-sec);margin-top:-20px;margin-bottom:8px;font-size:0.95rem;">Enter your email and we'll send you <strong style="color:var(--text);" id="email-first-book"></strong> right away.</p>
+    <p style="color:var(--text-muted);margin-bottom:28px;font-size:0.88rem;">No payment required. Subscribe later to unlock the full curriculum.</p>
     <div class="email-form">
       <input type="email" placeholder="you@example.com" id="email-input" autocomplete="email">
       <p class="email-error" id="email-error">Please enter a valid email address.</p>
-      <button class="btn" id="email-submit" onclick="submitEmail()">Start Your Curriculum</button>
+      <button class="btn" id="email-submit" onclick="submitEmail()">Send Me the Free Conversation</button>
     </div>
-    <p style="font-size:0.82rem;color:var(--text-muted);margin-top:20px;">&euro;30/month &middot; Cancel anytime</p>
   </div>
 </div>
 
 <!-- ===== SCREEN 4: CONFIRMATION ===== -->
 <div class="screen" data-screen="confirmation">
   <div class="screen-inner">
-    <h2 class="section-title" style="margin-bottom:12px;">You're in!</h2>
-    <p style="color:var(--text-sec);font-size:1.05rem;margin-bottom:8px;">Check your email for your first book conversation.</p>
+    <h2 class="section-title" style="margin-bottom:12px;">Check your inbox!</h2>
+    <p style="color:var(--text-sec);font-size:1.05rem;margin-bottom:8px;">Your free book conversation is on its way.</p>
     <div class="confirmation-box">
+      <div class="conf-label">Your free conversation</div>
+      <div class="conf-value" id="conf-first-book"></div>
+    </div>
+    <div class="confirmation-box" style="margin-top:12px;">
       <div class="conf-label">Your curriculum</div>
       <div class="conf-value" id="conf-curriculum"></div>
     </div>
-    <div class="confirmation-box" style="margin-top:12px;">
-      <div class="conf-label">Your first book</div>
-      <div class="conf-value" id="conf-first-book"></div>
-    </div>
+    <p style="color:var(--text-sec);font-size:0.92rem;margin-top:24px;">Enjoyed it? Subscribe to unlock the full curriculum &mdash; a new book conversation every week.</p>
+    <button class="btn" style="margin-top:16px;" onclick="window.location.href='https://buy.stripe.com/YOUR_CHECKOUT_LINK'">Subscribe &mdash; &euro;30/month</button>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;">Cancel anytime. No questions asked.</p>
   </div>
 </div>
 
@@ -472,6 +475,9 @@ function showScreen(name) {
   document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
   const target = document.querySelector(`[data-screen="${name}"]`);
   if (target) target.classList.add('active');
+  if (name === 'email' && selectedCurriculum) {
+    document.getElementById('email-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
+  }
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
