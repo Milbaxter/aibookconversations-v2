@@ -63,7 +63,7 @@
     .screen-inner { max-width: 720px; width: 100%; text-align: center; }
 
     /* ===== HERO ===== */
-    .hero { padding: 0; }
+    .hero { padding: 0; min-height: auto; }
     .hero-section {
       min-height: 100vh; min-height: 100dvh; display: flex; align-items: center;
       justify-content: center; text-align: center; padding: 60px 24px; position: relative;
@@ -80,6 +80,51 @@
     .hero h1 em { font-style: italic; color: var(--accent); }
     .hero .sub { font-size: 1.15rem; color: var(--text-sec); max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
     .hero .price-note { font-size: 0.92rem; color: var(--text-muted); margin-top: 16px; }
+
+    /* ===== VALUE PROPS ===== */
+    .value-section {
+      padding: 80px 24px; border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .value-inner { max-width: 640px; margin: 0 auto; }
+    .value-section h2 {
+      font-size: 2.2rem; font-weight: 600; line-height: 1.2;
+      margin-bottom: 16px; text-align: center;
+    }
+    .value-section h2 em { font-style: italic; color: var(--accent); }
+    .value-section .value-lead {
+      font-size: 1.05rem; color: var(--text-sec); text-align: center;
+      line-height: 1.7; margin-bottom: 48px; max-width: 540px; margin-left: auto; margin-right: auto;
+    }
+    .value-points { display: grid; gap: 32px; }
+    .value-point { display: flex; gap: 20px; align-items: flex-start; }
+    .value-point .vp-marker {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+      background: var(--accent-dim); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-top: 2px;
+    }
+    .value-point .vp-content { text-align: left; }
+    .value-point .vp-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+    .value-point .vp-text { font-size: 0.92rem; color: var(--text-sec); line-height: 1.6; }
+
+    .quote-section {
+      padding: 60px 24px; border-top: 1px solid var(--border);
+      background: var(--bg-deep); text-align: center;
+    }
+    .quote-section blockquote {
+      max-width: 520px; margin: 0 auto; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-style: italic; color: var(--text-sec); line-height: 1.5;
+    }
+    .quote-section .quote-attr {
+      font-family: 'Nunito Sans', sans-serif;
+      font-style: normal; font-size: 0.88rem; color: var(--text-muted); margin-top: 12px;
+    }
+
+    .cta-section {
+      padding: 60px 24px; border-top: 1px solid var(--border);
+      background: var(--bg); text-align: center;
+    }
 
     /* ===== BUTTONS ===== */
     .btn {
@@ -177,6 +222,9 @@
       .curriculum-grid { grid-template-columns: 1fr; }
       .screen { padding: 70px 20px 40px; }
       .curriculum-card { padding: 24px 20px; }
+      .value-section h2 { font-size: 1.7rem; }
+      .value-section { padding: 60px 20px; }
+      .quote-section blockquote { font-size: 1.25rem; }
     }
     @media (max-width: 400px) {
       .hero h1 { font-size: 2rem; }
@@ -194,6 +242,55 @@
       <button class="btn" onclick="showScreen('curricula')">Choose Your Curriculum</button>
       <p class="price-note">Starting at &euro;30/month</p>
     </div>
+  </div>
+
+  <div class="value-section">
+    <div class="value-inner">
+      <h2>The books everyone references.<br><em>Almost nobody reads.</em></h2>
+      <p class="value-lead">Plato's Republic. Meditations. The Wealth of Nations. You know the names. You've seen them quoted everywhere. But who actually sits down and reads 2,400-year-old philosophy? Now you don't have to.</p>
+      <div class="value-points">
+        <div class="value-point">
+          <div class="vp-marker">&#x1f4ac;</div>
+          <div class="vp-content">
+            <div class="vp-title">Conversation beats reading</div>
+            <div class="vp-text">You retain more from a 20-minute conversation than from highlighting a book you'll never reopen. Talk through the ideas, challenge them, make them yours.</div>
+          </div>
+        </div>
+        <div class="value-point">
+          <div class="vp-marker">&#x1f9e0;</div>
+          <div class="vp-content">
+            <div class="vp-title">Ideas that shaped the world, made accessible</div>
+            <div class="vp-text">These aren't airport bestsellers. These are the foundational texts behind every major idea in politics, investing, psychology, and philosophy. Distilled into conversations you can actually have.</div>
+          </div>
+        </div>
+        <div class="value-point">
+          <div class="vp-marker">&#x1f4c5;</div>
+          <div class="vp-content">
+            <div class="vp-title">One book per week, curated for you</div>
+            <div class="vp-text">No decision fatigue. No 200-book reading list you'll never finish. Pick a curriculum, and each week a new conversation lands in your inbox. Just show up.</div>
+          </div>
+        </div>
+        <div class="value-point">
+          <div class="vp-marker">&#x1f3af;</div>
+          <div class="vp-content">
+            <div class="vp-title">Depth, not summaries</div>
+            <div class="vp-text">This isn't Blinkist. You won't get bullet points. You'll have an actual conversation with an AI that knows the book inside out &mdash; argue with Aristotle's ideas, question Seneca's logic, pressure-test Buffett's principles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-section">
+    <blockquote>
+      "A mind needs books as a sword needs a whetstone, if it is to keep its edge."
+      <div class="quote-attr">&mdash; George R.R. Martin</div>
+    </blockquote>
+  </div>
+
+  <div class="cta-section">
+    <button class="btn" onclick="showScreen('curricula')">Choose Your Curriculum</button>
+    <p style="font-size:0.82rem;color:var(--text-muted);margin-top:14px;">3 curated paths &middot; Starting at &euro;30/month</p>
   </div>
 </div>
 
