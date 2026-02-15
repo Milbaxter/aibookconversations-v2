@@ -173,6 +173,33 @@
     .curriculum-card .card-count {
       font-size: 0.78rem; color: var(--accent); font-weight: 600; margin-top: 12px;
     }
+    .card-toggle {
+      font-size: 0.82rem; color: var(--accent); font-weight: 600;
+      margin-top: 10px; cursor: pointer; display: inline-block;
+      transition: color 0.2s;
+    }
+    .card-toggle:hover { color: var(--accent-light); }
+    .card-toggle .arrow { font-size: 0.7rem; margin-left: 4px; display: inline-block; transition: transform 0.25s; }
+    .card-toggle.open .arrow { transform: rotate(180deg); }
+    .card-full-list {
+      display: none; margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .card-full-list.open { display: block; animation: fadeIn 0.3s ease; }
+    .card-full-list ol {
+      list-style: none; counter-reset: book; text-align: left;
+    }
+    .card-full-list li {
+      counter-increment: book; font-size: 0.82rem; color: var(--text-sec);
+      padding: 5px 0; line-height: 1.5;
+    }
+    .card-full-list li::before {
+      content: counter(book) ". "; color: var(--text-muted); font-weight: 600;
+      font-size: 0.78rem;
+    }
+    .card-full-list li .book-author {
+      color: var(--text-muted); font-size: 0.78rem;
+    }
     .curriculum-card .check-mark {
       position: absolute; top: 14px; right: 14px;
       width: 24px; height: 24px; border-radius: 50%;
@@ -307,10 +334,29 @@
         <div class="card-desc">The education that built Western civilization. The foundational texts on truth, virtue, power, and the human condition.</div>
         <div class="card-books">
           <span>Plato &middot; Aristotle &middot; Homer</span>
-          <span>Dostoyevsky &middot; Machiavelli</span>
-          <span>Dante &middot; Shakespeare &middot; Tolstoy</span>
+          <span>Dostoyevsky &middot; Machiavelli &middot; Tolstoy</span>
         </div>
-        <div class="card-count">~15 books</div>
+        <div class="card-count">15 books</div>
+        <div class="card-toggle" onclick="toggleBookList(event, this)">See full book list <span class="arrow">&#9660;</span></div>
+        <div class="card-full-list">
+          <ol>
+            <li>The Republic <span class="book-author">&mdash; Plato</span></li>
+            <li>Nicomachean Ethics <span class="book-author">&mdash; Aristotle</span></li>
+            <li>The Iliad <span class="book-author">&mdash; Homer</span></li>
+            <li>The Odyssey <span class="book-author">&mdash; Homer</span></li>
+            <li>Meditations <span class="book-author">&mdash; Marcus Aurelius</span></li>
+            <li>The Prince <span class="book-author">&mdash; Machiavelli</span></li>
+            <li>The Brothers Karamazov <span class="book-author">&mdash; Dostoyevsky</span></li>
+            <li>Crime and Punishment <span class="book-author">&mdash; Dostoyevsky</span></li>
+            <li>Anna Karenina <span class="book-author">&mdash; Tolstoy</span></li>
+            <li>The Divine Comedy <span class="book-author">&mdash; Dante</span></li>
+            <li>Hamlet <span class="book-author">&mdash; Shakespeare</span></li>
+            <li>The Confessions <span class="book-author">&mdash; Augustine</span></li>
+            <li>Leviathan <span class="book-author">&mdash; Hobbes</span></li>
+            <li>Thus Spoke Zarathustra <span class="book-author">&mdash; Nietzsche</span></li>
+            <li>The Wealth of Nations <span class="book-author">&mdash; Adam Smith</span></li>
+          </ol>
+        </div>
       </div>
 
       <div class="curriculum-card" data-curriculum="investors" onclick="selectCurriculum('investors', this)">
@@ -319,10 +365,26 @@
         <div class="card-desc">The books recommended by Buffett, Munger, and the world's greatest investors. Mental models for markets and life.</div>
         <div class="card-books">
           <span>The Intelligent Investor &middot; Poor Charlie's Almanack</span>
-          <span>The Psychology of Money</span>
-          <span>Security Analysis &middot; Common Stocks</span>
+          <span>The Psychology of Money &middot; Security Analysis</span>
         </div>
-        <div class="card-count">~12 books</div>
+        <div class="card-count">12 books</div>
+        <div class="card-toggle" onclick="toggleBookList(event, this)">See full book list <span class="arrow">&#9660;</span></div>
+        <div class="card-full-list">
+          <ol>
+            <li>The Intelligent Investor <span class="book-author">&mdash; Benjamin Graham</span></li>
+            <li>Poor Charlie's Almanack <span class="book-author">&mdash; Charlie Munger</span></li>
+            <li>The Psychology of Money <span class="book-author">&mdash; Morgan Housel</span></li>
+            <li>Security Analysis <span class="book-author">&mdash; Graham &amp; Dodd</span></li>
+            <li>Common Stocks and Uncommon Profits <span class="book-author">&mdash; Philip Fisher</span></li>
+            <li>The Essays of Warren Buffett <span class="book-author">&mdash; Warren Buffett</span></li>
+            <li>One Up on Wall Street <span class="book-author">&mdash; Peter Lynch</span></li>
+            <li>Margin of Safety <span class="book-author">&mdash; Seth Klarman</span></li>
+            <li>The Most Important Thing <span class="book-author">&mdash; Howard Marks</span></li>
+            <li>Thinking, Fast and Slow <span class="book-author">&mdash; Daniel Kahneman</span></li>
+            <li>Influence <span class="book-author">&mdash; Robert Cialdini</span></li>
+            <li>The Outsiders <span class="book-author">&mdash; William Thorndike</span></li>
+          </ol>
+        </div>
       </div>
 
       <div class="curriculum-card" data-curriculum="stoics" onclick="selectCurriculum('stoics', this)">
@@ -330,11 +392,27 @@
         <div class="card-name">The Stoic Path</div>
         <div class="card-desc">Master your mind and find tranquility. The ancient philosophy that teaches you to control what you can and accept what you can't.</div>
         <div class="card-books">
-          <span>Marcus Aurelius &middot; Seneca</span>
-          <span>Epictetus &middot; Cicero</span>
-          <span>Musonius Rufus &middot; Chrysippus</span>
+          <span>Marcus Aurelius &middot; Seneca &middot; Epictetus</span>
+          <span>Cicero &middot; Musonius Rufus</span>
         </div>
-        <div class="card-count">~12 books</div>
+        <div class="card-count">12 books</div>
+        <div class="card-toggle" onclick="toggleBookList(event, this)">See full book list <span class="arrow">&#9660;</span></div>
+        <div class="card-full-list">
+          <ol>
+            <li>Meditations <span class="book-author">&mdash; Marcus Aurelius</span></li>
+            <li>Letters from a Stoic <span class="book-author">&mdash; Seneca</span></li>
+            <li>On the Shortness of Life <span class="book-author">&mdash; Seneca</span></li>
+            <li>Discourses <span class="book-author">&mdash; Epictetus</span></li>
+            <li>The Enchiridion <span class="book-author">&mdash; Epictetus</span></li>
+            <li>On the Good Life <span class="book-author">&mdash; Cicero</span></li>
+            <li>Lectures <span class="book-author">&mdash; Musonius Rufus</span></li>
+            <li>On Anger <span class="book-author">&mdash; Seneca</span></li>
+            <li>On the Tranquility of Mind <span class="book-author">&mdash; Seneca</span></li>
+            <li>The Art of Living <span class="book-author">&mdash; Epictetus (Sharon Lebell)</span></li>
+            <li>A Guide to the Good Life <span class="book-author">&mdash; William Irvine</span></li>
+            <li>The Daily Stoic <span class="book-author">&mdash; Ryan Holiday</span></li>
+          </ol>
+        </div>
       </div>
 
     </div>
@@ -366,6 +444,10 @@
       <div class="conf-label">Your curriculum</div>
       <div class="conf-value" id="conf-curriculum"></div>
     </div>
+    <div class="confirmation-box" style="margin-top:12px;">
+      <div class="conf-label">Your first book</div>
+      <div class="conf-value" id="conf-first-book"></div>
+    </div>
   </div>
 </div>
 
@@ -377,6 +459,12 @@ const curriculumNames = {
   'great-books': 'The Great Books',
   'investors': "The Investor's Bookshelf",
   'stoics': 'The Stoic Path'
+};
+
+const curriculumFirstBook = {
+  'great-books': 'The Republic — Plato',
+  'investors': 'The Intelligent Investor — Benjamin Graham',
+  'stoics': 'Meditations — Marcus Aurelius'
 };
 
 // ===== NAVIGATION =====
@@ -393,6 +481,18 @@ function selectCurriculum(id, el) {
   document.querySelectorAll('.curriculum-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('curricula-continue').disabled = false;
+}
+
+// ===== TOGGLE BOOK LIST =====
+function toggleBookList(e, toggleEl) {
+  e.stopPropagation();
+  const list = toggleEl.nextElementSibling;
+  const isOpen = toggleEl.classList.contains('open');
+  toggleEl.classList.toggle('open');
+  list.classList.toggle('open');
+  toggleEl.innerHTML = isOpen
+    ? 'See full book list <span class="arrow">&#9660;</span>'
+    : 'Hide book list <span class="arrow">&#9660;</span>';
 }
 
 // ===== EMAIL SUBMIT =====
@@ -432,6 +532,7 @@ function submitEmail() {
   setTimeout(() => {
     // Show confirmation screen (Stripe checkout is placeholder for now)
     document.getElementById('conf-curriculum').textContent = curriculumNames[selectedCurriculum] || selectedCurriculum;
+    document.getElementById('conf-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
     showScreen('confirmation');
     btn.textContent = 'Start Your Curriculum';
     btn.disabled = false;
