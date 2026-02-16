@@ -205,6 +205,39 @@
       letter-spacing: 0.3px;
     }
 
+    /* ===== PROGRESS BAR ===== */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--bg-raised); z-index: 200; display: none;
+    }
+    #progress-fill {
+      height: 100%; width: 0; background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    /* ===== QUIZ ===== */
+    .q-label {
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 2.5px; color: var(--accent); margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .q-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+      font-weight: 400; margin-bottom: 36px; line-height: 1.25;
+    }
+    .choices { display: grid; gap: 8px; width: 100%; max-width: 400px; margin: 0 auto; }
+    .choices.cols-2 { grid-template-columns: 1fr 1fr; }
+    .choice {
+      background: transparent; border: 1px solid var(--border-hover);
+      border-radius: 2px; padding: 16px 20px; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      user-select: none; text-align: center;
+    }
+    .choice:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .choice.selected { border-color: var(--accent); background: var(--accent-dim); }
+    .choice .ch-text { font-size: 0.88rem; font-weight: 500; }
+    .choice .ch-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
     /* ===== SECTION LABELS & TITLES ===== */
     .section-label {
       font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
@@ -334,11 +367,13 @@
     @media (max-width: 640px) {
       .hero h1 { font-size: 2.6rem; letter-spacing: -1px; }
       .section-title { font-size: 1.8rem; }
+      .q-title { font-size: 1.6rem; }
       .value-headline { font-size: 1.9rem; }
       .value-grid { grid-template-columns: 1fr; gap: 36px; }
       .screen { padding: 80px 20px 60px; }
       .page-section { padding: 72px 20px; }
       .curriculum-card { padding: 28px 24px; }
+      .choices.cols-2 { grid-template-columns: 1fr; }
     }
     @media (max-width: 400px) {
       .hero h1 { font-size: 2.2rem; }
@@ -355,6 +390,7 @@
   </style>
 </head>
 <body>
+<div id="progress-bar"><div id="progress-fill"></div></div>
 
 <!-- ===== SCREEN 1: HERO ===== -->
 <div class="screen hero active" data-screen="hero">
@@ -364,7 +400,7 @@
       <h1>Conversations with the<br><em>greatest books ever written</em></h1>
       <div class="hero-rule"></div>
       <p class="sub">Pick a curated curriculum. Each week, we send you a new book conversation &mdash; a 20-minute deep dive into a world-changing book.</p>
-      <button class="btn-primary" onclick="showScreen('curricula')">Choose Your Curriculum</button>
+      <button class="btn-primary" onclick="startQuiz()">Get Started</button>
     </div>
   </div>
 
@@ -407,13 +443,68 @@
 
   <div class="page-section alt">
     <div class="cta-block">
-      <button class="btn-primary" onclick="showScreen('curricula')">Choose Your Curriculum</button>
-      <p class="cta-note">3 curated paths &middot; First conversation free</p>
+      <button class="btn-primary" onclick="startQuiz()">Get Started</button>
+      <p class="cta-note">Takes less than 2 minutes</p>
     </div>
   </div>
 </div>
 
-<!-- ===== SCREEN 2: PICK YOUR CURRICULUM ===== -->
+<!-- ===== QUIZ STEP 1: AGE ===== -->
+<div class="screen" data-screen="q-age">
+  <div class="screen-inner">
+    <p class="q-label">About You</p>
+    <h2 class="q-title">What is your age?</h2>
+    <div class="choices cols-2">
+      <div class="choice" onclick="selectQuiz('age','18-24',this)"><span class="ch-text">18&ndash;24</span></div>
+      <div class="choice" onclick="selectQuiz('age','25-34',this)"><span class="ch-text">25&ndash;34</span></div>
+      <div class="choice" onclick="selectQuiz('age','35-44',this)"><span class="ch-text">35&ndash;44</span></div>
+      <div class="choice" onclick="selectQuiz('age','45+',this)"><span class="ch-text">45+</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ STEP 2: GENDER ===== -->
+<div class="screen" data-screen="q-gender">
+  <div class="screen-inner">
+    <p class="q-label">About You</p>
+    <h2 class="q-title">What is your gender?</h2>
+    <div class="choices">
+      <div class="choice" onclick="selectQuiz('gender','male',this)"><span class="ch-text">Male</span></div>
+      <div class="choice" onclick="selectQuiz('gender','female',this)"><span class="ch-text">Female</span></div>
+      <div class="choice" onclick="selectQuiz('gender','other',this)"><span class="ch-text">Other / Prefer not to say</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ STEP 3: READING HABITS ===== -->
+<div class="screen" data-screen="q-reading">
+  <div class="screen-inner">
+    <p class="q-label">Your Habits</p>
+    <h2 class="q-title">How many books do you typically read per year?</h2>
+    <div class="choices">
+      <div class="choice" onclick="selectQuiz('reading','0-2',this)"><span class="ch-text">0&ndash;2</span><div class="ch-sub">I rarely finish books</div></div>
+      <div class="choice" onclick="selectQuiz('reading','3-10',this)"><span class="ch-text">3&ndash;10</span><div class="ch-sub">A few per year</div></div>
+      <div class="choice" onclick="selectQuiz('reading','11-25',this)"><span class="ch-text">11&ndash;25</span><div class="ch-sub">About one a month</div></div>
+      <div class="choice" onclick="selectQuiz('reading','25+',this)"><span class="ch-text">25+</span><div class="ch-sub">I read constantly</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUIZ STEP 4: MOTIVATION ===== -->
+<div class="screen" data-screen="q-motivation">
+  <div class="screen-inner">
+    <p class="q-label">Your Motivation</p>
+    <h2 class="q-title">What draws you most to great books?</h2>
+    <div class="choices">
+      <div class="choice" onclick="selectQuiz('motivation','wisdom',this)"><span class="ch-text">Timeless wisdom</span><div class="ch-sub">Ideas that have stood the test of time</div></div>
+      <div class="choice" onclick="selectQuiz('motivation','practical',this)"><span class="ch-text">Practical thinking tools</span><div class="ch-sub">Mental models I can apply to my life</div></div>
+      <div class="choice" onclick="selectQuiz('motivation','curiosity',this)"><span class="ch-text">Intellectual curiosity</span><div class="ch-sub">I want to understand the world better</div></div>
+      <div class="choice" onclick="selectQuiz('motivation','gaps',this)"><span class="ch-text">Filling gaps in my education</span><div class="ch-sub">Books I should have read but never did</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PICK YOUR CURRICULUM ===== -->
 <div class="screen" data-screen="curricula">
   <div class="screen-inner">
     <p class="section-label">Choose Your Path</p>
@@ -553,6 +644,10 @@
 <script>
 // ===== STATE =====
 let selectedCurriculum = null;
+const answers = {};
+
+const quizFlow = ['q-age', 'q-gender', 'q-reading', 'q-motivation', 'curricula'];
+const totalSteps = quizFlow.length + 1; // +1 for email
 
 const curriculumNames = {
   'great-books': 'The Great Books',
@@ -574,7 +669,39 @@ function showScreen(name) {
   if (name === 'email' && selectedCurriculum) {
     document.getElementById('email-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
   }
+  updateProgress(name);
   window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function updateProgress(name) {
+  const bar = document.getElementById('progress-bar');
+  const fill = document.getElementById('progress-fill');
+  const idx = quizFlow.indexOf(name);
+  if (idx >= 0) {
+    bar.style.display = 'block';
+    fill.style.width = ((idx + 1) / totalSteps * 100) + '%';
+  } else if (name === 'email') {
+    bar.style.display = 'block';
+    fill.style.width = '100%';
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+function startQuiz() {
+  showScreen('q-age');
+}
+
+// ===== QUIZ SELECTION (auto-advance) =====
+function selectQuiz(key, value, el) {
+  answers[key] = value;
+  el.parentElement.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const currentScreen = el.closest('.screen').dataset.screen;
+  const idx = quizFlow.indexOf(currentScreen);
+  if (idx >= 0 && idx < quizFlow.length - 1) {
+    setTimeout(() => showScreen(quizFlow[idx + 1]), 350);
+  }
 }
 
 // ===== CURRICULUM SELECTION =====
@@ -616,7 +743,13 @@ function submitEmail() {
   btn.textContent = 'SENDING\u2026';
   btn.disabled = true;
 
-  const fields = { curriculum: selectedCurriculum };
+  const fields = {
+    curriculum: selectedCurriculum,
+    age: answers.age || '',
+    gender: answers.gender || '',
+    reading_habits: answers.reading || '',
+    motivation: answers.motivation || ''
+  };
 
   fetch('/api/subscribe', {
     method: 'POST',
