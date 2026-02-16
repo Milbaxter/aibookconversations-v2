@@ -568,6 +568,33 @@
         <div class="check-indicator"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
       </div>
 
+      <div class="curriculum-card" data-curriculum="marketing" onclick="selectCurriculum('marketing', this)">
+        <div class="card-body">
+          <div class="card-name">The Marketing Playbook</div>
+          <div class="card-desc">The essential reads for building, growing, and selling anything. Strategy, positioning, persuasion, and the psychology behind why people buy.</div>
+          <div class="card-books">The 1-Page Marketing Plan &middot; $100M Offers &middot; Influence &middot; This Is Marketing &middot; Positioning</div>
+          <div class="card-count">12 books</div>
+          <div class="card-toggle" onclick="toggleBookList(event, this)">See full book list <span class="arrow">&#9660;</span></div>
+          <div class="card-full-list">
+            <ol>
+              <li>The 1-Page Marketing Plan <span class="book-author">&mdash; Allan Dib</span></li>
+              <li>$100M Offers <span class="book-author">&mdash; Alex Hormozi</span></li>
+              <li>Influence <span class="book-author">&mdash; Robert Cialdini</span></li>
+              <li>This Is Marketing <span class="book-author">&mdash; Seth Godin</span></li>
+              <li>Positioning <span class="book-author">&mdash; Al Ries &amp; Jack Trout</span></li>
+              <li>Made to Stick <span class="book-author">&mdash; Chip &amp; Dan Heath</span></li>
+              <li>Building a StoryBrand <span class="book-author">&mdash; Donald Miller</span></li>
+              <li>Contagious <span class="book-author">&mdash; Jonah Berger</span></li>
+              <li>Ogilvy on Advertising <span class="book-author">&mdash; David Ogilvy</span></li>
+              <li>The 22 Immutable Laws of Marketing <span class="book-author">&mdash; Ries &amp; Trout</span></li>
+              <li>Crossing the Chasm <span class="book-author">&mdash; Geoffrey Moore</span></li>
+              <li>Purple Cow <span class="book-author">&mdash; Seth Godin</span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="check-indicator"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+      </div>
+
       <div class="curriculum-card" data-curriculum="stoics" onclick="selectCurriculum('stoics', this)">
         <div class="card-body">
           <div class="card-name">The Stoic Path</div>
@@ -652,12 +679,14 @@ const totalSteps = quizFlow.length + 1; // +1 for email
 const curriculumNames = {
   'great-books': 'The Great Books',
   'investors': "The Investor\u2019s Bookshelf",
+  'marketing': 'The Marketing Playbook',
   'stoics': 'The Stoic Path'
 };
 
 const curriculumFirstBook = {
   'great-books': 'The Republic \u2014 Plato',
   'investors': 'The Intelligent Investor \u2014 Benjamin Graham',
+  'marketing': 'The 1-Page Marketing Plan \u2014 Allan Dib',
   'stoics': 'Meditations \u2014 Marcus Aurelius'
 };
 
