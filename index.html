@@ -135,11 +135,6 @@
     .btn-solid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .btn-solid:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    .hero-price {
-      font-size: 0.82rem; color: var(--text-muted);
-      margin-top: 20px; letter-spacing: 0.5px;
-    }
-
     /* ===== SECTIONS (below hero fold) ===== */
     .page-section {
       padding: 100px 24px;
@@ -205,15 +200,48 @@
       letter-spacing: 0.3px;
     }
 
+    /* ===== NAV BAR ===== */
+    .nav-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: none; align-items: center; justify-content: space-between;
+      padding: 16px 24px; background: var(--bg);
+    }
+    .nav-bar.visible { display: flex; }
+    .nav-back {
+      background: none; border: none; color: var(--text-secondary);
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
+      cursor: pointer; font-family: inherit; padding: 4px 0;
+      transition: color 0.2s; display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-home {
+      background: none; border: none; cursor: pointer; padding: 4px 0;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-home:hover { color: var(--accent-hover); }
+    .nav-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
     /* ===== PROGRESS BAR ===== */
     #progress-bar {
       position: fixed; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--bg-raised); z-index: 200; display: none;
+      background: var(--bg-raised); z-index: 201; display: none;
     }
     #progress-fill {
       height: 100%; width: 0; background: var(--accent);
       transition: width 0.4s ease;
     }
+
+    /* ===== RECOMMENDED BADGE ===== */
+    .card-recommended {
+      display: none; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .card-recommended.show { display: block; }
 
     /* ===== QUIZ ===== */
     .q-label {
@@ -390,6 +418,10 @@
   </style>
 </head>
 <body>
+<nav class="nav-bar" id="nav-bar">
+  <button class="nav-back" id="nav-back" onclick="goBack()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg> Back</button>
+  <a class="nav-home" href="#" onclick="goHome(event)">AI Book Conversations</a>
+</nav>
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
 <!-- ===== SCREEN 1: HERO ===== -->
@@ -399,7 +431,7 @@
       <span class="hero-wordmark">AI Book Conversations</span>
       <h1>Conversations with the<br><em>greatest books ever written</em></h1>
       <div class="hero-rule"></div>
-      <p class="sub">Pick a curated curriculum. Each week, we send you a new book conversation &mdash; a 20-minute deep dive into a world-changing book.</p>
+      <p class="sub">Curated book curricula delivered weekly &mdash; each one a 20-minute AI conversation that brings a world-changing book to life.</p>
       <button class="btn-primary" onclick="startQuiz()">Get Started</button>
     </div>
   </div>
@@ -513,6 +545,7 @@
 
       <div class="curriculum-card" data-curriculum="great-books" onclick="selectCurriculum('great-books', this)">
         <div class="card-body">
+          <div class="card-recommended" data-rec="great-books">Recommended for you</div>
           <div class="card-name">The Great Books</div>
           <div class="card-desc">The canon of Western liberal arts education. These are the books assigned at Columbia, St. John&rsquo;s, and Chicago &mdash; the texts that shaped how we think about justice, truth, power, and what it means to live well.</div>
           <div class="card-books">Plato &middot; Aristotle &middot; Homer &middot; Dostoyevsky &middot; Machiavelli &middot; Tolstoy</div>
@@ -543,6 +576,7 @@
 
       <div class="curriculum-card" data-curriculum="investors" onclick="selectCurriculum('investors', this)">
         <div class="card-body">
+          <div class="card-recommended" data-rec="investors">Recommended for you</div>
           <div class="card-name">The Investor&rsquo;s Bookshelf</div>
           <div class="card-desc">The books recommended by Buffett, Munger, and the world&rsquo;s greatest investors. Mental models for markets and life.</div>
           <div class="card-books">The Intelligent Investor &middot; Poor Charlie&rsquo;s Almanack &middot; The Psychology of Money &middot; Security Analysis</div>
@@ -570,6 +604,7 @@
 
       <div class="curriculum-card" data-curriculum="marketing" onclick="selectCurriculum('marketing', this)">
         <div class="card-body">
+          <div class="card-recommended" data-rec="marketing">Recommended for you</div>
           <div class="card-name">The Marketing Playbook</div>
           <div class="card-desc">For founders who want to learn how to actually go to market and sell products. Positioning, offers, persuasion, and the playbooks behind companies that broke through.</div>
           <div class="card-books">The 1-Page Marketing Plan &middot; $100M Offers &middot; Influence &middot; This Is Marketing &middot; Positioning</div>
@@ -597,6 +632,7 @@
 
       <div class="curriculum-card" data-curriculum="stoics" onclick="selectCurriculum('stoics', this)">
         <div class="card-body">
+          <div class="card-recommended" data-rec="stoics">Recommended for you</div>
           <div class="card-name">The Stoic Path</div>
           <div class="card-desc">Master your mind and find tranquility. The ancient philosophy that teaches you to control what you can and accept what you can&rsquo;t.</div>
           <div class="card-books">Marcus Aurelius &middot; Seneca &middot; Epictetus &middot; Cicero &middot; Musonius Rufus</div>
@@ -635,6 +671,7 @@
     <p style="color:var(--text-secondary);margin-top:-32px;margin-bottom:8px;font-size:0.92rem;line-height:1.7;">Enter your email and we&rsquo;ll send you <strong style="color:var(--text);" id="email-first-book"></strong> right away.</p>
     <p style="color:var(--text-muted);margin-bottom:36px;font-size:0.82rem;">No payment required. Subscribe later to unlock the full curriculum.</p>
     <div class="email-form">
+      <label for="email-input" style="display:block;font-size:0.78rem;color:var(--text-muted);letter-spacing:0.5px;margin-bottom:8px;text-align:left;">Email address</label>
       <input type="email" placeholder="you@example.com" id="email-input" autocomplete="email" name="email">
       <p class="email-error" id="email-error">Please enter a valid email address.</p>
       <button class="btn-solid" id="email-submit" onclick="submitEmail()">Send Me the Free Conversation</button>
@@ -691,15 +728,52 @@ const curriculumFirstBook = {
 };
 
 // ===== NAVIGATION =====
+let screenHistory = [];
+
 function showScreen(name) {
+  const current = document.querySelector('.screen.active');
+  if (current && current.dataset.screen !== name) {
+    screenHistory.push(current.dataset.screen);
+  }
   document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
   const target = document.querySelector(`[data-screen="${name}"]`);
   if (target) target.classList.add('active');
   if (name === 'email' && selectedCurriculum) {
     document.getElementById('email-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
   }
+  if (name === 'curricula') {
+    showRecommendations();
+  }
   updateProgress(name);
+  updateNav(name);
   window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function updateNav(name) {
+  const nav = document.getElementById('nav-bar');
+  if (name === 'hero' || name === 'confirmation') {
+    nav.classList.remove('visible');
+  } else {
+    nav.classList.add('visible');
+  }
+}
+
+function goBack() {
+  if (screenHistory.length > 0) {
+    const prev = screenHistory.pop();
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    const target = document.querySelector(`[data-screen="${prev}"]`);
+    if (target) target.classList.add('active');
+    updateProgress(prev);
+    updateNav(prev);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+}
+
+function goHome(e) {
+  e.preventDefault();
+  screenHistory = [];
+  showScreen('hero');
 }
 
 function updateProgress(name) {
@@ -719,6 +793,28 @@ function updateProgress(name) {
 
 function startQuiz() {
   showScreen('q-age');
+}
+
+// ===== RECOMMENDATIONS =====
+function showRecommendations() {
+  // Clear all
+  document.querySelectorAll('.card-recommended').forEach(el => el.classList.remove('show'));
+
+  const mot = answers.motivation;
+  if (!mot) return;
+
+  // Map motivation answers to recommended curricula
+  const recMap = {
+    'wisdom': ['great-books', 'stoics'],
+    'practical': ['marketing', 'investors'],
+    'curiosity': ['great-books'],
+    'gaps': ['great-books', 'investors']
+  };
+  const recs = recMap[mot] || [];
+  recs.forEach(id => {
+    const badge = document.querySelector(`.card-recommended[data-rec="${id}"]`);
+    if (badge) badge.classList.add('show');
+  });
 }
 
 // ===== QUIZ SELECTION (auto-advance) =====
@@ -754,7 +850,7 @@ function toggleBookList(e, toggleEl) {
 }
 
 // ===== EMAIL SUBMIT =====
-function submitEmail() {
+async function submitEmail() {
   const input = document.getElementById('email-input');
   const btn = document.getElementById('email-submit');
   const errorEl = document.getElementById('email-error');
@@ -780,25 +876,27 @@ function submitEmail() {
     motivation: answers.motivation || ''
   };
 
-  fetch('/api/subscribe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email_address: email, fields: fields })
-  })
-  .then(r => r.json().then(d => ({ ok: r.ok, status: r.status, data: d })))
-  .then(({ ok, status, data }) => {
-    if (ok) console.log('[Kit] Subscribed:', data);
-    else console.error('[Kit] Error ' + status + ':', data);
-  })
-  .catch(e => console.error('[Kit] Network error:', e));
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email_address: email, fields: fields })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      console.log('[Kit] Subscribed:', data);
+    } else {
+      console.error('[Kit] Error ' + res.status + ':', data);
+    }
+  } catch (e) {
+    console.error('[Kit] Network error:', e);
+  }
 
-  setTimeout(() => {
-    document.getElementById('conf-curriculum').textContent = curriculumNames[selectedCurriculum] || selectedCurriculum;
-    document.getElementById('conf-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
-    showScreen('confirmation');
-    btn.textContent = 'SEND ME THE FREE CONVERSATION';
-    btn.disabled = false;
-  }, 1200);
+  document.getElementById('conf-curriculum').textContent = curriculumNames[selectedCurriculum] || selectedCurriculum;
+  document.getElementById('conf-first-book').textContent = curriculumFirstBook[selectedCurriculum] || '';
+  showScreen('confirmation');
+  btn.textContent = 'SEND ME THE FREE CONVERSATION';
+  btn.disabled = false;
 }
 </script>
 
