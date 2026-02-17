@@ -656,6 +656,34 @@
         <div class="check-indicator"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
       </div>
 
+      <div class="curriculum-card" data-curriculum="spiritual" onclick="selectCurriculum('spiritual', this)">
+        <div class="card-body">
+          <div class="card-recommended" data-rec="spiritual">Recommended for you</div>
+          <div class="card-name">The Spiritual Journey</div>
+          <div class="card-desc">Awaken to who you really are. The books on consciousness, presence, and inner freedom that have transformed millions of lives &mdash; across every tradition and none.</div>
+          <div class="card-books">The Untethered Soul &middot; The Power of Now &middot; The Four Agreements &middot; Autobiography of a Yogi</div>
+          <div class="card-count">12 books &middot; 12 weeks</div>
+          <div class="card-toggle" onclick="toggleBookList(event, this)">See full book list <span class="arrow">&#9660;</span></div>
+          <div class="card-full-list">
+            <ol>
+              <li>The Untethered Soul <span class="book-author">&mdash; Michael A. Singer</span></li>
+              <li>The Power of Now <span class="book-author">&mdash; Eckhart Tolle</span></li>
+              <li>A New Earth <span class="book-author">&mdash; Eckhart Tolle</span></li>
+              <li>The Four Agreements <span class="book-author">&mdash; Don Miguel Ruiz</span></li>
+              <li>Courage: The Joy of Living Dangerously <span class="book-author">&mdash; Osho</span></li>
+              <li>The Alchemist <span class="book-author">&mdash; Paulo Coelho</span></li>
+              <li>Autobiography of a Yogi <span class="book-author">&mdash; Paramahansa Yogananda</span></li>
+              <li>Man&rsquo;s Search for Meaning <span class="book-author">&mdash; Viktor E. Frankl</span></li>
+              <li>The Prophet <span class="book-author">&mdash; Kahlil Gibran</span></li>
+              <li>Tao Te Ching <span class="book-author">&mdash; Lao Tzu</span></li>
+              <li>Bhagavad Gita <span class="book-author">&mdash; Vyasa</span></li>
+              <li>Zen Mind, Beginner&rsquo;s Mind <span class="book-author">&mdash; Shunryu Suzuki</span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="check-indicator"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+      </div>
+
     </div>
     <button class="btn-solid" id="curricula-continue" onclick="showScreen('email')" disabled>Continue</button>
   </div>
@@ -715,14 +743,16 @@ const curriculumNames = {
   'great-books': 'The Great Books',
   'investors': "The Investor\u2019s Bookshelf",
   'marketing': 'The Marketing Playbook',
-  'stoics': 'The Stoic Path'
+  'stoics': 'The Stoic Path',
+  'spiritual': 'The Spiritual Journey'
 };
 
 const curriculumFirstBook = {
   'great-books': 'The Republic \u2014 Plato',
   'investors': 'The Intelligent Investor \u2014 Benjamin Graham',
   'marketing': 'The 1-Page Marketing Plan \u2014 Allan Dib',
-  'stoics': 'Meditations \u2014 Marcus Aurelius'
+  'stoics': 'Meditations \u2014 Marcus Aurelius',
+  'spiritual': 'The Untethered Soul \u2014 Michael A. Singer'
 };
 
 // ===== NAVIGATION =====
@@ -803,9 +833,9 @@ function showRecommendations() {
 
   // Map motivation answers to recommended curricula
   const recMap = {
-    'wisdom': ['great-books', 'stoics'],
+    'wisdom': ['great-books', 'stoics', 'spiritual'],
     'practical': ['marketing', 'investors'],
-    'curiosity': ['great-books'],
+    'curiosity': ['great-books', 'spiritual'],
     'gaps': ['great-books', 'investors']
   };
   const recs = recMap[mot] || [];
